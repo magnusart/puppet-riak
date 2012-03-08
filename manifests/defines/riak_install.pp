@@ -5,6 +5,7 @@ define riak::install(
     $owner = 'riak',
     $group = 'riak',
     $bind_ip = "127.0.0.1",
+    $hostname = $::hostname
 ) {
 
 #we need to know if this is a 32 or 64 bit machine
@@ -29,6 +30,37 @@ exec { riak_download:
     require => File["riak_src_folder"],
     before => Package["riak"]
 }
+
+file { riak_app_config:
+    path => "/etc/riak/app.config",
+    ensure => present,
+    replace => true,
+    owner => root,
+    group => root,
+    content => template("riak/app.config.erb")
+}
+
+file { riak_vm_args:
+    path => "/etc/riak/vm.args",
+    ensure => present,
+    replace => true,
+    owner => root,
+    group => root,
+    content => template("riak/vm.args.erb"),
+    before => Package["riak"],
+    notify => Service["riak"]
+}
+
+file { riak_src_folder:
+    path => "${path}/riak",
+    ensure => "directory",
+    owner => root,
+    group => root,
+    before => Package["riak"],
+    notify => Service["riak"]
+}
+
+
 
 
 package { "riak" :

@@ -8,11 +8,11 @@
 
               %% http is a list of IP addresses and TCP ports that the Riak
               %% HTTP interface will bind.
-              {http, [ {"127.0.0.1", 8098 } ]},
+              {http, [ {"<%= bind_ip %>", 8098 } ]},
 
               %% https is a list of IP addresses and TCP ports that the Riak
               %% HTTPS interface will bind.
-              %{https, [{ "127.0.0.1", 8098 }]},
+              %{https, [{ "<%= bind_ip %>", 8098 }]},
 
               %% Default cert and key locations for https can be overridden
               %% with the ssl config variable, for example:
@@ -47,7 +47,7 @@
 
             %% pb_ip is the IP address that the Riak Protocol Buffers interface
             %% will bind to.  If this is undefined, the interface will not run.
-            {pb_ip,   "127.0.0.1" },
+            {pb_ip,   "<%= bind_ip %>" },
 
             %% pb_port is the TCP port that the Riak Protocol Buffers interface
             %% will bind to
