@@ -1,10 +1,10 @@
 define riak::join(
-    $host = "",
+    $host = "localhost",
 ) {
 
 exec { riak_join: 
-    command =>"riak-admin join riak@${host}; touch /etc/riak/join-attempted",
-    creates => "/etc/riak/join-attempted",
+    command =>"riak-admin join riak@${host}",
+    unless => "riak-admin member_status | grep ${host}",
     require => Service["riak"],
 }
 
