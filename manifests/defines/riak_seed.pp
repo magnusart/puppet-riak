@@ -1,5 +1,5 @@
 define riak::seed(
-    $hostname = $::fqdn,
+    $fqdn = $::fqdn,
 ) {
 
 exec { riak_download: 
