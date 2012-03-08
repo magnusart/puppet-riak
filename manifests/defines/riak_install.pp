@@ -8,7 +8,7 @@ define riak::install(
 ) {
 
 #we need to know if this is a 32 or 64 bit machine
-if $hardwaremodel == 'x86_64' {
+if $::hardwaremodel == 'x86_64' {
     $arch = "amd64"
 } else {
     $arch = "i386"
@@ -22,7 +22,7 @@ file { riak_src_folder:
     group => root
 }
 
-exec { riak_downlaod: 
+exec { riak_download: 
     command =>"wget http://downloads.basho.com/riak/riak-${version}/riak_${version}-${revision}_${arch}.deb -O riak_${version}-${revision}_${arch}.deb",
     cwd => "${path}/riak",
     creates => "${path}/riak/riak_${version}-${revision}_${arch}.deb",
