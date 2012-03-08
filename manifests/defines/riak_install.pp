@@ -5,7 +5,7 @@ define riak::install(
     $owner = 'riak',
     $group = 'riak',
     $bind_ip = "127.0.0.1",
-    $hostname = $::hostname
+    $hostname = $::fqdn
 ) {
 
 #we need to know if this is a 32 or 64 bit machine
