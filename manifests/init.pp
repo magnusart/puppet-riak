@@ -1,9 +1,6 @@
 import "defines/*.pp"
 
 class riak {
-    user { "riak":
-        ensure => present,
-    }
     @service { "riak":
         ensure => running,
         enable => true,
