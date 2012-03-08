@@ -6,6 +6,6 @@ class riak {
         enable => true,
         hasrestart => true,
         hasstatus => false,
-        require => File["/etc/init.d/riak"],
+        require => File["riak_app_config", "riak_vm_args"],
     }
 }

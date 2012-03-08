@@ -37,7 +37,8 @@ file { riak_app_config:
     replace => true,
     owner => root,
     group => root,
-    content => template("riak/app.config.erb")
+    content => template("riak/app.config.erb"),
+    require => Package["riak"]
 }
 
 file { riak_vm_args:
@@ -47,21 +48,8 @@ file { riak_vm_args:
     owner => root,
     group => root,
     content => template("riak/vm.args.erb"),
-    before => Package["riak"],
-    notify => Service["riak"]
+    require => Package["riak"]
 }
-
-file { riak_src_folder:
-    path => "${path}/riak",
-    ensure => "directory",
-    owner => root,
-    group => root,
-    before => Package["riak"],
-    notify => Service["riak"]
-}
-
-
-
 
 package { "riak" :
     ensure => installed,
@@ -70,6 +58,6 @@ package { "riak" :
 }
 
 
-
+realize Service["riak"]
 
 }
