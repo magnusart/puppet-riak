@@ -36,13 +36,12 @@
               {platform_data_dir, "/var/lib/riak"},
               {platform_etc_dir, "/etc/riak"},
               {platform_lib_dir, "/usr/lib/riak"},
-              {platform_log_dir, "/var/log/riak"}
+              {platform_log_dir, "/var/log/riak"},
+              
+              {ring_creation_size, <%= ring_max_size %> },
+              {target_n_val, <%= target_n_val %> }
+
              ]},
-             
-             
-             {ring_creation_size, <%= ring_max_size %> },
-             {target_n_val, <%= target_n_val %> },
-             
 
  %% Riak KV config
  {riak_kv, [
