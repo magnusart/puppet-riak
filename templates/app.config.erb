@@ -192,7 +192,8 @@
 
  %% eLevelDB Config
  {eleveldb, [
-             {data_root, "/var/lib/riak/leveldb"}
+             {data_root, "/var/lib/riak/leveldb"},
+             {cache_size, <%= cache_size %>}
             ]},
 
  %% Lager Config

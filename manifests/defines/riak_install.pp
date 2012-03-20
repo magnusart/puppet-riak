@@ -25,6 +25,9 @@ if $::hardwaremodel == 'x86_64' {
 }
 
 
+$cache_size = $::memorysizeinbytes / 2
+
+
 file { riak_src_folder:
     path => "${path}/riak",
     ensure => "directory",
