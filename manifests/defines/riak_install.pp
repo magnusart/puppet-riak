@@ -5,7 +5,16 @@ define riak::install(
     $owner = 'riak',
     $group = 'riak',
     $bind_ip = "127.0.0.1",
-    $fqdn = $::fqdn
+    $fqdn = $::fqdn,
+    $certfile = '/etc/riak/cert.pem',
+    $keyfile = '/etc/riak/key.pem',
+    $riak_search_enable = 'false',
+    $admin_user = 'user',
+    $admin_pass = 'pass',
+    $storage_backend = 'riak_kv_bitcask_backend',
+    $ring_max_size = '64',
+    $target_n_val = '4'
+    
 ) {
 
 #we need to know if this is a 32 or 64 bit machine
@@ -31,6 +40,18 @@ exec { riak_download:
     before => Package["riak"]
 }
 
+
+package { 'openssl' : ensure => installed }
+
+exec { riak_ssl_key :
+    command => "openssl req -new -x509 -nodes -out cert.pem -keyout key.pem -days 3650 -batch -newkey rsa:2048",
+    cwd => '/etc/riak',
+    creates => '/etc/riak/cert.pem',
+    require => Package["riak"],
+    notify => Service["riak"]
+}
+
+
 file { riak_app_config:
     path => "/etc/riak/app.config",
     ensure => present,
@@ -38,7 +59,8 @@ file { riak_app_config:
     owner => root,
     group => root,
     content => template("riak/app.config.erb"),
-    require => Package["riak"]
+    require => Package["riak"],
+    notify => Service["riak"]
 }
 
 file { riak_vm_args:
@@ -48,7 +70,8 @@ file { riak_vm_args:
     owner => root,
     group => root,
     content => template("riak/vm.args.erb"),
-    require => Package["riak"]
+    require => Package["riak"],
+    notify => Service["riak"]
 }
 
 package { "riak" :
