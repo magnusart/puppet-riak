@@ -13,7 +13,8 @@ define riak::install(
     $admin_pass = 'pass',
     $storage_backend = 'riak_kv_bitcask_backend',
     $ring_max_size = '64',
-    $target_n_val = '4'
+    $target_n_val = '4',
+    $cache_size = $::memorysizeinbytes / 2
     
 ) {
 
@@ -23,9 +24,6 @@ if $::hardwaremodel == 'x86_64' {
 } else {
     $arch = "i386"
 }
-
-
-$cache_size = $::memorysizeinbytes / 2
 
 
 file { riak_src_folder:
@@ -43,8 +41,6 @@ exec { riak_download:
     before => Package["riak"]
 }
 
-
-package { 'openssl' : ensure => installed }
 
 exec { riak_ssl_key :
     command => "openssl req -new -x509 -nodes -out cert.pem -keyout key.pem -days 3650 -batch -newkey rsa:2048",
