@@ -1,6 +1,4 @@
-define riak::join(
-    $host = "localhost",
-) {
+define riak::join( $name = "localhost", ) {
 
 exec { riak_join: 
     command =>"riak-admin join riak@${host}",
