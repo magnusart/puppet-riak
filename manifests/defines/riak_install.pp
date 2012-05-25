@@ -1,5 +1,5 @@
 define riak::install(
-    $name = '1.1.0',
+    $version = $name,
     $revision = '1',
     $path = '/usr/local/src',
     $owner = 'riak',
