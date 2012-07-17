@@ -43,7 +43,7 @@ exec { riak_download:
 
 
 exec { riak_ssl_key :
-    command => "openssl req -new -x509 -nodes -out cert.pem -keyout key.pem -days 3650 -batch -newkey rsa:2048",
+    command => "/usr/bin/openssl req -new -x509 -nodes -out cert.pem -keyout key.pem -days 3650 -batch -newkey rsa:2048",
     cwd => '/etc/riak',
     creates => '/etc/riak/cert.pem',
     require => Package["riak"],
