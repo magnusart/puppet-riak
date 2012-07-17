@@ -34,7 +34,7 @@ file { riak_src_folder:
 }
 
 exec { riak_download: 
-    command =>"wget http://downloads.basho.com/riak/riak-${version}/riak_${version}-${revision}_${arch}.deb -O riak_${version}-${revision}_${arch}.deb",
+    command =>"/usr/bin/wget http://downloads.basho.com/riak/riak-${version}/riak_${version}-${revision}_${arch}.deb -O riak_${version}-${revision}_${arch}.deb",
     cwd => "${path}/riak",
     creates => "${path}/riak/riak_${version}-${revision}_${arch}.deb",
     require => File["riak_src_folder"],
