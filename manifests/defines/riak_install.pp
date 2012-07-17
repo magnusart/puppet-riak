@@ -34,7 +34,7 @@ file { riak_src_folder:
 }
 
 exec { riak_download: 
-    command =>"/usr/bin/wget http://downloads.basho.com/riak/riak-${version}/riak_${version}-${revision}_${arch}.deb -O riak_${version}-${revision}_${arch}.deb",
+    command =>"wget http://downloads.basho.com/riak/riak-${version}/riak_${version}-${revision}_${arch}.deb -O riak_${version}-${revision}_${arch}.deb",
     cwd => "${path}/riak",
     creates => "${path}/riak/riak_${version}-${revision}_${arch}.deb",
     require => File["riak_src_folder"],
@@ -43,7 +43,7 @@ exec { riak_download:
 
 
 exec { riak_ssl_key :
-    command => "/usr/bin/openssl req -new -x509 -nodes -out cert.pem -keyout key.pem -days 3650 -batch -newkey rsa:2048",
+    command => "openssl req -new -x509 -nodes -out cert.pem -keyout key.pem -days 3650 -batch -newkey rsa:2048",
     cwd => '/etc/riak',
     creates => '/etc/riak/cert.pem',
     require => Package["riak"],
