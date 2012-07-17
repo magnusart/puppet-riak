@@ -1,5 +1,3 @@
-Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
-
 import "defines/*.pp"
 
 class riak {
