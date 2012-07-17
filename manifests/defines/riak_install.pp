@@ -73,6 +73,10 @@ file { riak_vm_args:
     notify => Service["riak"]
 }
 
+package { 'libssl0.9.8':
+  ensure => present,
+}
+
 package { "riak" :
     ensure => installed,
     provider => dpkg,
